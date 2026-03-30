@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catch the Heart 💖</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  overflow: hidden;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 60px;
+  color: white;
+}
+
+#heart {
+  position: absolute;
+  font-size: 80px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#heart:hover {
+  transform: scale(1.2);
+}
+
+.hidden {
+  display: none;
+}
+
+#bucketlist {
+  display: none;
+  padding: 20px;
+  color: white;
+}
+
+.list-item {
+  font-size: 20px;
+  margin: 10px;
+}
+</style>
+</head>
+<body>
+
+<h1 id="title">Catch the heart to see what's inside 😉</h1>
+<div id="heart">🎈💖</div>
+
+<div id="bucketlist">
+  <h1>Our Love Bucket List 💕</h1>
+  <div class="list-item"><input type="checkbox"> Masai Mara 🐘</div>
+  <div class="list-item"><input type="checkbox"> Swiss Alps Road Trip 🚗</div>
+  <div class="list-item"><input type="checkbox"> Paris Trip 🗼</div>
+  <div class="list-item"><input type="checkbox"> Italian Summer 🍝</div>
+  <div class="list-item"><input type="checkbox"> Disneyland Paris 🎢</div>
+</div>
+
+<script>
+const heart = document.getElementById("heart");
+const bucket = document.getElementById("bucketlist");
+const title = document.getElementById("title");
+
+function moveHeart() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+  heart.style.left = x + "px";
+  heart.style.top = y + "px";
+}
+
+// Move every 1.5 seconds
+setInterval(moveHeart, 1500);
+moveHeart();
+
+heart.addEventListener("click", () => {
+  heart.style.display = "none";
+  title.style.display = "none";
+  bucket.style.display = "block";
+});
+</script>
+
+</body>
+</html>
