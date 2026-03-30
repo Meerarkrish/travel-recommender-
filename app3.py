@@ -18,7 +18,7 @@ def main():
             color: white;
         }
         </style>
-        """, unsafe_allow_stdio=True)
+        """, unsafe_allow_html=True)
 
     # 2. Hero Header
     st.title("🏙️ 2026 Elite Travel Curator")
