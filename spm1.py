@@ -6,64 +6,55 @@ def main():
     if 'unlocked' not in st.session_state:
         st.session_state.unlocked = False
 
-    # --- THE FINAL FIX CSS ---
+    # --- THE "FORCE FLOAT" CSS ---
     st.markdown("""
         <style>
-        /* Pastel Pink Background */
+        /* 1. Background */
         .stApp {
-            background-color: #ffe0e9;
+            background-color: #ffe0e9 !important;
         }
         
-        /* The Animation */
-        @keyframes float {
+        /* 2. The Animation */
+        @keyframes heartFloat {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-40px); }
             100% { transform: translateY(0px); }
         }
 
-        /* This is the magic wrapper that forces the button to float */
-        .floating-wrapper {
-            animation: float 3s ease-in-out infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 300px;
-            margin-top: 20px;
-        }
-
-        /* Target the button inside the floating wrapper */
-        .floating-wrapper div.stButton > button {
+        /* 3. Force the Button to BE the Heart */
+        /* This targets the specific button and ignores Streamlit's shrinking rules */
+        button[kind="secondary"] {
             background-color: transparent !important;
             border: none !important;
-            font-size: 150px !important;
-            height: 200px !important;
-            width: 200px !important;
-            color: red !important;
-            cursor: pointer;
             box-shadow: none !important;
-            transition: transform 0.2s;
+            font-size: 160px !important; /* Huge Size */
+            color: #FF0000 !important;   /* Bright Red */
+            height: 300px !important;
+            width: 100% !important;
+            display: block !important;
+            animation: heartFloat 3s ease-in-out infinite !important;
+            cursor: pointer !important;
+            padding: 0 !important;
         }
 
-        /* Keep it looking like a heart on hover */
-        .floating-wrapper div.stButton > button:hover, 
-        .floating-wrapper div.stButton > button:active,
-        .floating-wrapper div.stButton > button:focus {
+        /* Prevent hover 'grey out' */
+        button[kind="secondary"]:hover, button[kind="secondary"]:active, button[kind="secondary"]:focus {
             background-color: transparent !important;
-            color: red !important;
+            color: #FF0000 !important;
             border: none !important;
             box-shadow: none !important;
-            transform: scale(1.1);
         }
 
+        /* 4. Text Styles */
         .instruction-text {
             text-align: center;
-            font-family: 'Comic Sans MS', cursive;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             font-size: 32px;
             color: #FF4B4B;
             margin-top: 60px;
+            margin-bottom: 40px;
         }
 
-        /* Screen 2 - The Message */
         .love-box {
             background-color: #FF4B4B;
             color: white;
@@ -77,7 +68,7 @@ def main():
         .blush-text {
             color: #FF4B4B;
             text-align: center;
-            font-size: 28px;
+            font-size: 26px;
             margin-top: 30px;
             font-family: 'Helvetica Neue', sans-serif;
         }
@@ -88,12 +79,10 @@ def main():
     if not st.session_state.unlocked:
         st.markdown('<div class="instruction-text">catch the heart to see what\'s inside 😉</div>', unsafe_allow_html=True)
         
-        # We wrap the button in our animated 'floating-wrapper'
-        st.markdown('<div class="floating-wrapper">', unsafe_allow_html=True)
-        if st.button("❤️", key="heart_trigger_final"):
+        # We use a standard button, but the CSS above 'kind="secondary"' transforms it
+        if st.button("❤️", key="the_big_heart"):
             st.session_state.unlocked = True
             st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
 
     # --- SCREEN 2: THE REVELATION ---
     else:
