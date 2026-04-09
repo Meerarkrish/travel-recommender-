@@ -21,20 +21,29 @@ def main():
             100% { transform: translateY(0px); }
         }
 
-        /* 3. Force the Button to BE the Heart */
-        /* This targets the specific button and ignores Streamlit's shrinking rules */
+        /* 3. Force the Button to BE a HUGE Heart */
         button[kind="secondary"] {
             background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            font-size: 160px !important; /* Huge Size */
-            color: #FF0000 !important;   /* Bright Red */
-            height: 300px !important;
-            width: 100% !important;
+            color: #FF0000 !important;
+            
+            /* This is the key: Scale makes it massive regardless of font rules */
+            transform-origin: center;
+            transform: scale(3.5) !important; 
+            
             display: block !important;
+            margin: 100px auto !important; /* Adds space around the giant heart */
             animation: heartFloat 3s ease-in-out infinite !important;
             cursor: pointer !important;
-            padding: 0 !important;
+            width: 100px !important; /* Constraints to keep it centered */
+        }
+
+        /* Keep the giant size even when hovering */
+        button[kind="secondary"]:hover, button[kind="secondary"]:active {
+            background-color: transparent !important;
+            transform: scale(3.8) !important; /* Gets slightly bigger when he tries to catch it */
+            color: #FF0000 !important;
         }
 
         /* Prevent hover 'grey out' */
