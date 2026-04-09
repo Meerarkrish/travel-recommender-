@@ -6,47 +6,37 @@ def main():
     if 'unlocked' not in st.session_state:
         st.session_state.unlocked = False
 
-    # --- THE "FORCE FLOAT" CSS ---
+    # --- THE "GIANT & FLOATING" CSS ---
     st.markdown("""
         <style>
-        /* 1. Background */
         .stApp {
             background-color: #ffe0e9 !important;
         }
         
-        /* 2. The Animation */
-        @keyframes heartFloat {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-40px); }
-            100% { transform: translateY(0px); }
+        /* This animation handles BOTH the giant size and the floating */
+        @keyframes giantFloat {
+            0% { transform: scale(4) translateY(0px); }
+            50% { transform: scale(4) translateY(-30px); }
+            100% { transform: scale(4) translateY(0px); }
         }
 
-        /* 3. Force the Button to BE a HUGE Heart */
         button[kind="secondary"] {
             background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
             color: #FF0000 !important;
-            
-            /* This is the key: Scale makes it massive regardless of font rules */
-            transform-origin: center;
-            transform: scale(3.5) !important; 
-            
             display: block !important;
-            margin: 100px auto !important; /* Adds space around the giant heart */
-            animation: heartFloat 3s ease-in-out infinite !important;
+            margin: 150px auto !important; 
+            
+            /* Apply the combined animation */
+            animation: giantFloat 3s ease-in-out infinite !important;
+            
             cursor: pointer !important;
-            width: 100px !important; /* Constraints to keep it centered */
+            width: 100% !important;
+            height: 200px !important;
         }
 
-        /* Keep the giant size even when hovering */
-        button[kind="secondary"]:hover, button[kind="secondary"]:active {
-            background-color: transparent !important;
-            transform: scale(3.8) !important; /* Gets slightly bigger when he tries to catch it */
-            color: #FF0000 !important;
-        }
-
-        /* Prevent hover 'grey out' */
+        /* Keep it giant and red when interacted with */
         button[kind="secondary"]:hover, button[kind="secondary"]:active, button[kind="secondary"]:focus {
             background-color: transparent !important;
             color: #FF0000 !important;
@@ -54,14 +44,12 @@ def main():
             box-shadow: none !important;
         }
 
-        /* 4. Text Styles */
         .instruction-text {
             text-align: center;
             font-family: 'Comic Sans MS', cursive, sans-serif;
             font-size: 32px;
             color: #FF4B4B;
             margin-top: 60px;
-            margin-bottom: 40px;
         }
 
         .love-box {
@@ -84,12 +72,11 @@ def main():
         </style>
     """, unsafe_allow_html=True)
 
-    # --- SCREEN 1: THE FLOATING HEART ---
+    # --- SCREEN 1: THE BIG FLOATING HEART ---
     if not st.session_state.unlocked:
         st.markdown('<div class="instruction-text">catch the heart to see what\'s inside 😉</div>', unsafe_allow_html=True)
         
-        # We use a standard button, but the CSS above 'kind="secondary"' transforms it
-        if st.button("❤️", key="the_big_heart"):
+        if st.button("❤️", key="the_final_heart"):
             st.session_state.unlocked = True
             st.rerun()
 
